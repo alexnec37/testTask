@@ -1,0 +1,37 @@
+﻿<Window x:Class="TestApplicationSIBERS.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vw="clr-namespace:TestApplicationSIBERS.Views"
+    xmlns:c="clr-namespace:TestApplicationSIBERS.Commands" Title="Main Window" Height="400" Width="800">
+    
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml" />
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Command="{Binding ExitCommand}" Header="E_xit" />
+            </MenuItem>
+            <MenuItem Header="Работа">
+                <MenuItem Header="Проекты" Command="{Binding Path=ShowAllProjects}" />
+                <MenuItem Header="Добавить проект" Command="{Binding Path=ShowProject}" />
+                <MenuItem Header="Сотрудники" Command="{Binding Path=ShowAllEmployees}" />
+                <MenuItem Header="Добавить сотрудника" Command="{Binding Path=ShowEmployee}" />
+                <MenuItem Header="Сотрудники проекта" Command="{Binding Path=ShowProjectToEmployees}" />
+            </MenuItem>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Настройки" Command="{Binding Path=ShowSettings}" />
+            </MenuItem>
+        </Menu>
+        <DockPanel>
+            <Border Style="{StaticResource MainBorderStyle}">
+            <ContentControl
+                VerticalAlignment="Stretch"
+               Content="{Binding Path=Workspaces}"
+               ContentTemplate="{StaticResource WorkspacesTemplate}"
+            />
+            </Border>
+        </DockPanel>
+    </DockPanel>
+</Window>

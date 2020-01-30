@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="TestApplicationSIBERS.Views.ProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="270" d:DesignWidth="300">
+    <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type ValidationError}">
+                <TextBlock Foreground="Red" HorizontalAlignment="Right" Margin="0,1"
+                    Text="{Binding Path=ErrorContent}" />
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Название проета:" HorizontalAlignment="Right" />
+        <TextBox x:Name="NameProjectTxt" Grid.Row="0" Grid.Column="2" 
+            Text="{Binding Path=NameProject, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors).CurrentItem}" 
+        />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Приоритет:" HorizontalAlignment="Right" />
+        <ComboBox x:Name="PriorityCmb" Grid.Row="2" Grid.Column="2" 
+                  ItemsSource="{Binding Path=Priorities, Mode=OneTime}"
+                  DisplayMemberPath="Value"   
+                  SelectedValuePath="Key"
+                  SelectedValue="{Binding Path=PriorityKey, ValidatesOnDataErrors=True}"  
+                  Validation.ErrorTemplate="{x:Null}"
+        />
+
+        <Label Grid.Row="4" Grid.Column="0" Content="Дата начала:" HorizontalAlignment="Right" />
+        <DatePicker x:Name="dateBegin" Width="100" Margin="0,0,0,0" Grid.Row="4" Grid.Column="2"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   SelectedDate="{Binding DateBegin, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors).CurrentItem}"  >
+        </DatePicker>
+
+        <Label Grid.Row="6" Grid.Column="0" Content="Дата завершения:" HorizontalAlignment="Right" />
+        <DatePicker x:Name="dateEnd" Width="100" Margin="0,0,0,0" Grid.Row="6" Grid.Column="2" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   SelectedDate="{Binding DateEnd, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors).CurrentItem}"  >
+        </DatePicker>
+
+        <Label Grid.Row="8" Grid.Column="0" Content="Компания заказчик:" HorizontalAlignment="Right" />
+        <ComboBox x:Name="CustomerCmb" Grid.Row="8" Grid.Column="2"
+            ItemsSource="{Binding Path=Customers, Mode=OneTime}"
+                    DisplayMemberPath="Name" 
+                    SelectedItem="{Binding Path=Customer, ValidatesOnDataErrors=True}"
+                    ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors).CurrentItem}">
+        </ComboBox>
+
+        <Label Grid.Row="10" Grid.Column="0" Content="Компания исполнитель:" HorizontalAlignment="Right" />
+        <ComboBox x:Name="ContractorCmb" Grid.Row="10" Grid.Column="2" ItemsSource="{Binding Path=Contractors, Mode=OneTime}"
+            SelectedItem="{Binding Path=Contractor, ValidatesOnDataErrors=True}"
+            Validation.ErrorTemplate="{x:Null}" DisplayMemberPath="Name"
+                  SelectedValuePath="Name"
+         />
+        
+        <Button Grid.Row="13" Grid.Column="2" Command="{Binding Path=SaveCommand}"
+            Content="_Save" HorizontalAlignment="Right" Margin="4,2" MinWidth="60" 
+        />
+    </Grid>
+</UserControl>

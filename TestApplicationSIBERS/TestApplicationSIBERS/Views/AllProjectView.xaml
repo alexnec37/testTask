@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="TestApplicationSIBERS.Views.AllProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:local="clr-namespace:TestApplicationSIBERS.Addons"
+             xmlns:converters="clr-namespace:TestApplicationSIBERS.Converters"
+             >
+
+    <UserControl.Resources>
+        <converters:PriorityConverter x:Shared="false" x:Key="priorityConverter"/>        
+    </UserControl.Resources>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding Path=AllProjects}" Grid.Row="0" 
+                  local:GridViewSort.AutoSort="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название проекта" DisplayMemberBinding="{Binding Path=Name}"
+                                    local:GridViewSort.PropertyName="Name"/>
+                    <GridViewColumn Header="Окончание работ" DisplayMemberBinding="{Binding Path=EndProject, StringFormat=\{0:dd.MM.yyyy\}}" 
+                                    local:GridViewSort.PropertyName="EndProject"/>
+                    <GridViewColumn Header="Приоритет" DisplayMemberBinding="{Binding Path=Priority,  Converter={StaticResource priorityConverter}}" 
+                                    local:GridViewSort.PropertyName="Priority"/>
+                    <GridViewColumn Header="Заказчик" DisplayMemberBinding="{Binding Path=Customer.Name}" 
+                                    local:GridViewSort.PropertyName="Customer.Name"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>
